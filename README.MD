@@ -5,7 +5,6 @@
 ![VulnBot Logo](https://img.shields.io/badge/VulnBot-CVE_Explainer-7a9f79?style=flat-square&logo=security)
 ![Python](https://img.shields.io/badge/Python-3.8+-3776ab?style=flat-square&logo=python)
 ![Flask](https://img.shields.io/badge/Flask-Latest-000000?style=flat-square&logo=flask)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 **VulnBot is an intelligent CVE (Common Vulnerabilities and Exposures) analysis tool that transforms complex security vulnerability data into simple, understandable explanations for non-technical users.**
 
@@ -77,7 +76,7 @@ VulnBot implements an intelligent fallback system:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/VulnBot.git
+git clone https://github.com/zenix20/VulnBot.git
 cd VulnBot
 ```
 
