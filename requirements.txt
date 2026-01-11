@@ -1,0 +1,16 @@
+# Web Framework
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# HTTP Client
+requests==2.31.0
+
+# Environment Management
+python-dotenv==1.0.0
+
+# Optional: Production Server
+gunicorn==21.2.0
+
+# Optional: Development and Testing
+pytest==7.4.2
+pytest-cov==4.1.0

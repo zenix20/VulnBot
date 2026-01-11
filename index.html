@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulnBot - CVE Explainer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#7a9f79',
+                            50: '#f3f7f3',
+                            100: '#e4ede4',
+                            200: '#c9dac9',
+                            300: '#a5c0a4',
+                            400: '#7a9f79',
+                            500: '#5d835c',
+                            600: '#476746',
+                            700: '#3a5339',
+                            800: '#304330',
+                            900: '#2a392a',
+                        },
+                        cyan: {
+                            DEFAULT: '#00CED1',
+                            400: '#00CED1',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-dark': 'linear-gradient(135deg, #001118 0%, #03254c 50%, #000000 100%)',
+                        'gradient-card': 'linear-gradient(135deg, rgba(0,49,81,0.5) 0%, rgba(6,55,58,0.3) 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Add this to your index.html head section for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body class="bg-gradient-dark text-white font-sans min-h-screen">
+    <div class="app-container">
+        <!-- Navbar -->
+        <nav class="border-b border-[#06373a]/30 bg-[#001118]/80 backdrop-blur-sm py-4 px-6">
+            <div class="max-w-7xl mx-auto flex items-center space-x-3">
+                <div class="relative">
+                    <!-- Brain Icon -->
+                    <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 2.5 2.5 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-3.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 2.5 2.5 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-3.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z">
+                        </path>
+                    </svg>
+                    <!-- Shield Icon -->
+                    <svg class="h-4 w-4 text-cyan-400 absolute -top-1 -right-1" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
+                    VulnBot
+                </h1>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col max-w-7xl mx-auto w-full">
+            <!-- Chat Container -->
+            <div id="chatContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
+                <!-- Welcome Message -->
+                <div class="flex justify-start">
+                    <div class="max-w-3xl w-full mr-12">
+                        <div
+                            class="p-4 rounded-2xl bg-gradient-to-r from-[#003951]/50 to-[#06373a]/30 border border-[#06373a]/30 backdrop-blur-sm">
+                            <p class="text-sm leading-relaxed">
+                                Hello! I'm VulnBot, your cybersecurity assistant. I specialize in explaining CVEs
+                                (Common Vulnerabilities and Exposures).
+                                Enter a CVE ID like "CVE-2024-3400" to get started.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Messages will be inserted here by JavaScript -->
+                <div id="messagesEnd"></div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t border-[#06373a]/30 bg-[#001118]/80 backdrop-blur-sm p-4">
+                <form id="messageForm" class="max-w-4xl mx-auto">
+                    <div class="flex space-x-3">
+                        <input type="text" id="messageInput" placeholder="Enter a CVE ID (e.g., CVE-2024-3400)..."
+                            class="flex-1 bg-[#003951]/50 border border-[#06373a]/50 focus:border-primary/50 text-white placeholder-gray-400 px-4 py-3 rounded-xl backdrop-blur-sm focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
+                            autocomplete="off">
+                        <button type="submit" id="sendButton"
+                            class="h-12 px-6 bg-gradient-to-r from-primary to-[#18392b] hover:from-primary/80 hover:to-[#18392b]/80 border border-primary/30 hover:border-primary/50 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

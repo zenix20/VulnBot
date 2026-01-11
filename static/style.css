@@ -1,0 +1,107 @@
+:root {
+    --primary: #7a9f79;
+    --secondary: #03254c;
+    --dark: #001118;
+    --info: #0dcaf0;
+    --success: #7a9f79;
+    --danger: #dc3545;
+    --warning: #ffc107;
+}
+
+body {
+    background: linear-gradient(to bottom right, #001118, #03254c, #000000);
+    color: white;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    backdrop-filter: blur(10px);
+}
+
+/* Badge colors */
+.badge-critical {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #ff6b7b;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.badge-high {
+    background-color: rgba(253, 126, 20, 0.2);
+    color: #ff9e5e;
+    border: 1px solid rgba(253, 126, 20, 0.3);
+}
+
+.badge-medium {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffdf7e;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.badge-low {
+    background-color: rgba(25, 135, 84, 0.2);
+    color: #6bdba7;
+    border: 1px solid rgba(25, 135, 84, 0.3);
+}
+
+/* Collapsible content */
+.simple-explanation-section {
+    transition: all 0.3s ease;
+}
+
+.simple-explanation-section.collapsed .simple-content {
+    display: none;
+}
+
+.simple-explanation-section:not(.collapsed) .simple-content {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.simple-explanation-section.collapsed .toggle-icon {
+    transform: rotate(0deg);
+}
+
+.simple-explanation-section:not(.collapsed) .toggle-icon {
+    transform: rotate(180deg);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Smooth transition for the arrow */
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 17, 24, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(122, 159, 121, 0.3);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(122, 159, 121, 0.5);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
