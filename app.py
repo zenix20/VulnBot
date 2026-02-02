@@ -36,7 +36,7 @@ def fetch_nvd_data(cve_id: str):
     """Fetch raw CVE data from NVD API"""
     headers = {"apiKey": NVD_API_KEY} if NVD_API_KEY else {}
     try:
-        print(f"🌐 Making NVD API request for {cve_id}")
+        print(f"Making NVD API request for {cve_id}")
         response = requests.get(
             f"{NVD_API_URL}?cveId={cve_id}",
             headers=headers,
@@ -45,7 +45,7 @@ def fetch_nvd_data(cve_id: str):
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        print(f"⚠️ NVD API Error for {cve_id}: {str(e)}")
+        print(f"NVD API Error for {cve_id}: {str(e)}")
         return None
 
 def extract_cve_fields(nvd_data: dict):
@@ -55,11 +55,11 @@ def extract_cve_fields(nvd_data: dict):
 
     vuln = nvd_data["vulnerabilities"][0]["cve"]
     # Add this to your extract_cve_fields function after the vuln = ... line
-    print(f"🔍 Available keys in CVE data: {list(vuln.keys())}")
+    print(f"Available keys in CVE data: {list(vuln.keys())}")
     if "cisaExploitAdd" in vuln:
-        print(f"📋 CISA Exploit Added: {vuln['cisaExploitAdd']}")
+        print(f"CISA Exploit Added: {vuln['cisaExploitAdd']}")
     if "cisaActionDue" in vuln:
-        print(f"📋 CISA Action Due: {vuln['cisaActionDue']}")
+        print(f"CISA Action Due: {vuln['cisaActionDue']}")
     
     # Initialize with default values that match frontend expectations
     result = {
@@ -168,7 +168,7 @@ def generate_simple_explanation(cve_data: dict):
         return generate_enhanced_fallback(cve_data)
         
     except Exception as e:
-        print(f"⚠️ Error in explanation generation: {str(e)}")
+        print(f"Error in explanation generation: {str(e)}")
         return generate_enhanced_fallback(cve_data)
 
 def try_groq_api(cve_data):
@@ -177,7 +177,7 @@ def try_groq_api(cve_data):
         GROQ_API_KEY = os.getenv('GROQ_API_KEY', '').strip()
         
         if not GROQ_API_KEY:
-            print("⚠️ GROQ_API_KEY not set, skipping Groq API")
+            print("GROQ_API_KEY not set, skipping Groq API")
             return None
         
         headers = {
@@ -279,14 +279,14 @@ Please provide:
         if response.status_code == 200:
             result = response.json()
             if isinstance(result, list) and len(result) > 0:
-                print(f"✅ Hugging Face API succeeded")
+                print(f"Hugging Face API succeeded")
                 generated_text = result[0].get('generated_text', '')
                 # Extract only the generated part (remove the prompt)
                 if generated_text.startswith(prompt):
                     generated_text = generated_text[len(prompt):].strip()
                 return generated_text
         else:
-            print(f"⚠️ Hugging Face API returned status {response.status_code}: {response.text[:200]}")
+            print(f"Hugging Face API returned status {response.status_code}: {response.text[:200]}")
                 
     except Exception as e:
         print(f"Hugging Face error: {str(e)}")
@@ -326,31 +326,31 @@ def analyze_cve():
     if not cve_id.startswith("CVE-") or len(cve_id.split("-")) != 3:
         return jsonify({"error": "Invalid CVE ID format (use CVE-YYYY-XXXXX)"}), 400
     
-    print(f"\n🔍 Fetching data for {cve_id}...")
+    print(f"\nFetching data for {cve_id}...")
     
     # Step 1: Fetch from NVD
     nvd_response = fetch_nvd_data(cve_id)
 
-    print("📄 Full NVD response structure:")
+    print("Full NVD response structure:")
     print(json.dumps(nvd_response, indent=2)[:1000])  # First 1000 chars
 
     if not nvd_response or not nvd_response.get("vulnerabilities"):
-        print(f"❌ No data found for {cve_id}")
+        print(f"No data found for {cve_id}")
         return jsonify({"error": "CVE not found in NVD"}), 404
     
-    print("✅ NVD Data Received")
+    print("NVD Data Received")
     
     # Step 2: Extract fields
     cve_data = extract_cve_fields(nvd_response)
     if not cve_data:
         return jsonify({"error": "Failed to extract CVE data"}), 500
-    print("📊 Extracted Fields")
+    print("Extracted Fields")
     
     # Step 3: Generate simple explanation
-    print("🧠 Generating simple explanation...")
+    print("Generating simple explanation...")
     simple_explanation = generate_simple_explanation(cve_data)
     
-    print("🚀 Sending response")
+    print("Sending response")
     return jsonify({
         "metadata": cve_data,  # Send all extracted fields directly
         "analysis": {

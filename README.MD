@@ -29,7 +29,7 @@ Whether you're a security professional, IT administrator, or curious learner, Vu
 
 ## Features
 
-### 🔍 Core Features
+### Core Features
 
 - **CVE Search & Analysis**: Query any CVE using the CVE ID format (e.g., `CVE-2024-3400`)
 - **NVD Integration**: Real-time data from NIST's National Vulnerability Database
@@ -42,7 +42,7 @@ Whether you're a security professional, IT administrator, or curious learner, Vu
   - Publication and Modification Dates
   - CISA Exploitation Status
 
-### 🎨 User Experience
+### User Experience
 
 - **Modern Web Interface**: Clean, responsive dark-themed UI built with Tailwind CSS
 - **Real-time Chat Interface**: Intuitive conversation-like experience
@@ -51,7 +51,7 @@ Whether you're a security professional, IT administrator, or curious learner, Vu
 - **Copy Functionality**: Easy copying of vulnerability details
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-### 🤖 AI Backends
+### AI Backends
 
 VulnBot implements an intelligent fallback system:
 
@@ -180,16 +180,16 @@ HF_API_KEY=your_huggingface_api_key_here
 
 ### Features in Action
 
-#### 📋 Analyze Vulnerability
+#### Analyze Vulnerability
 ```
 User: CVE-2024-3400
 VulnBot: [Shows detailed analysis with AI-generated explanation]
 ```
 
-#### 📥 Export 
+#### Export 
 Click the "Download" button to save the analysis as a professional report.
 
-#### 📋 Copy Details
+#### Copy Details
 Click the copy button on any section to copy details to your clipboard.
 
 ---
@@ -362,7 +362,7 @@ Cache size: 100 CVEs, ~1 hour duration
 
 ### Common Issues
 
-#### 🔴 "API Key not set" Error
+#### "API Key not set" Error
 
 **Problem**: Getting warnings that API keys aren't configured
 
@@ -378,7 +378,7 @@ cat .env
 # Not in a subdirectory
 ```
 
-#### 🔴 "CVE not found in NVD"
+#### "CVE not found in NVD"
 
 **Problem**: Valid CVE IDs returning not found
 
@@ -388,7 +388,7 @@ cat .env
 - Verify the CVE ID exists on https://nvd.nist.gov/
 - Try a different CVE ID to verify API connectivity
 
-#### 🔴 API Timeouts
+#### API Timeouts
 
 **Problem**: Requests timing out
 
@@ -398,7 +398,7 @@ cat .env
 - Try with different CVE ID
 - Check API service status pages
 
-#### 🔴 Port Already in Use
+#### Port Already in Use
 
 **Problem**: `Address already in use` error
 
@@ -479,7 +479,7 @@ Contributions are welcome!
 
 <div align="center">
 
-**Made with ❤️ for cybersecurity education and awareness**
+**Made for cybersecurity education and awareness**
 
 [⬆ Back to Top](#vulnbot---cve-explainer)
 
